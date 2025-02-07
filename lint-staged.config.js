@@ -6,4 +6,5 @@
 export default {
   // '**/*.{js,jsx,ts,tsx,json}': ['npm run eslint'],
   '*.{js,jsx,ts,tsx,json}': 'eslint',
+  '*.{css,scss,sass,less}': 'stylelint',
 };
