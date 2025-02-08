@@ -11,5 +11,6 @@ export default {
      */
     'postcss-nested': {},
     autoprefixer: {},
+    tailwindcss: {},
   },
 };
