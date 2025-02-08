@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "redjue.git-commit-plugin",
+    "dbaeumer.vscode-eslint",
+    "bradlc.vscode-tailwindcss",
+    "stylelint.vscode-stylelint"
+  ],
+  "unwantedRecommendations": [
+    "esbenp.prettier-vscode"
+  ]
+}
