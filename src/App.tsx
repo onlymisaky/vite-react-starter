@@ -18,7 +18,7 @@ function App() {
           <img src={reactLogo} className={`${logoStyle} logo react`} alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1>{import.meta.env.VITE_APP_TITLE}</h1>
       <div className="p-[2em]">
         <button type="button" onClick={() => setCount((count) => count + 1)}>
           count is
