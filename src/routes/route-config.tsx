@@ -1,12 +1,9 @@
 import type { RouteObject } from 'react-router-dom';
 import MainLayout from '@/layouts/MainLayout';
-import About from '@/pages/About';
 import AdminLayout from '@/pages/Admin/Layout';
-import Settings from '@/pages/Admin/Settings';
-import UserManage from '@/pages/Admin/UserManage';
-import Home from '@/pages/Home';
 import NotFound from '@/pages/NotFound';
 import { Navigate } from 'react-router-dom';
+import { lazyLoadComponent } from './utils';
 
 export const routes: RouteObject[] = [
   {
@@ -19,11 +16,11 @@ export const routes: RouteObject[] = [
       },
       {
         path: 'home',
-        element: <Home />,
+        element: lazyLoadComponent(() => import('@/pages/Home')),
       },
       {
         path: 'about',
-        element: <About />,
+        element: lazyLoadComponent(() => import('@/pages/About')),
       },
       {
         path: 'admin',
@@ -35,11 +32,11 @@ export const routes: RouteObject[] = [
           },
           {
             path: 'users',
-            element: <UserManage />,
+            element: lazyLoadComponent(() => import('@/pages/Admin/UserManage')),
           },
           {
             path: 'settings',
-            element: <Settings />,
+            element: lazyLoadComponent(() => import('@/pages/Admin/Settings')),
           },
         ],
       },
