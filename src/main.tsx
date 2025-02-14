@@ -1,10 +1,18 @@
-import App from '@/App.tsx';
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
 import './index.css';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-);
+const rootEl = document.getElementById('root')!;
+const root = ReactDOM.createRoot(rootEl);
+
+function setup(root: ReactDOM.Root, App: React.ComponentType, strictMode: boolean) {
+  const Component = strictMode ? React.StrictMode : React.Fragment;
+  root.render(
+    <Component>
+      <App />
+    </Component>,
+  );
+}
+
+setup(root, App, true);
