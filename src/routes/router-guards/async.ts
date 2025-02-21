@@ -5,15 +5,15 @@ function wait(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export const asyncGuard: Guard = async (_to, _from, next) => {
+export const asyncGuard: Guard = async (to, next) => {
   console.log(
-    `%c [call ${_to.pathname} asyncGuard]`,
+    `%c [${to.pathname} asyncGuard] 等待1秒后执行next`,
     'color: #FFF; font-weight: bold; background-color: #E6A23C;',
   );
   await wait(1000);
-  next(`${_to.pathname} asyncGuard`);
+  next(`|%c [${to.pathname} asyncGuard] 正在执行next | color: #FFF; font-weight: bold; background-color: #E6A23C;`);
   console.log(
-    `%c [called ${_to.pathname} asyncGuard next]`,
-    'color: #FFF; font-weight: bold; background-color: #67C23A;',
+    `%c [${to.pathname} asyncGuard] next执行完毕`,
+    'color: #FFF; font-weight: bold; background-color: #E6A23C;',
   );
 };

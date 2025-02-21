@@ -32,7 +32,6 @@ function RouteGuard({
   const location = useLocation();
   const navigate = useNavigate();
 
-  const previousLocation = useRef<Location | null>(null);
   const [loading, setLoading] = useState(false);
   const guardIndexRef = useRef(0);
   const isUnmountedRef = useRef(false);
@@ -46,17 +45,15 @@ function RouteGuard({
       return;
     }
 
-    const next: Parameters<Guard>[2] = async (to?: Location | false | void | string) => {
+    const next: Parameters<Guard>[1] = async (to?: Location | false | void | string) => {
       // 如果组件已卸载，终止执行
       if (isUnmountedRef.current)
         return;
 
-      if (typeof to === 'string' && to.endsWith('Guard')) {
+      const args = typeof to === 'string' ? to.split('|').map(item => item.trim()).filter(item => item) : [];
+      if (args.length > 1) {
         // eslint-disable-next-line no-console
-        console.log(
-          `%c [call ${to} next]`,
-          'color: #FFF; font-weight: bold; background-color: #F56C6C;',
-        );
+        console.log(...args);
       }
 
       if (to === false) {
@@ -64,7 +61,7 @@ function RouteGuard({
         return;
       }
 
-      if ((to && typeof to === 'object') || (typeof to === 'string' && !to.endsWith('Guard'))) {
+      if ((to && typeof to === 'object') || (typeof to === 'string' && args.length === 0)) {
         navigate(to);
         return;
       }
@@ -81,7 +78,9 @@ function RouteGuard({
       const nextGuard = allGuards[currentGuardIndex];
       const onceNext = once(next);
 
-      await nextGuard(location, previousLocation.current, onceNext);
+      // 等待微任务队列清空后再执行下一个 guard
+      await Promise.resolve();
+      await nextGuard(location, onceNext);
     };
 
     setLoading(true);

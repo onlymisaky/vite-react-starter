@@ -1,20 +1,26 @@
 /* eslint-disable no-console */
 import type { Guard } from '../components/RouteGuard/context';
 
-export const callbackGuard: Guard = (_to, _from, next) => {
+export const callbackGuard: Guard = (to, next) => {
   console.log(
-    `%c [call ${_to.pathname} callbackGuard]`,
-    'color: #FFF; font-weight: bold; background-color: #E6A23C;',
+    `%c [${to.pathname} callbackGuard] 等待3秒后执行next`,
+    'color: #FFF; font-weight: bold; background-color: #F56C6C;',
   );
   setTimeout(() => {
-    next(`${_to.pathname} callbackGuard`);
+    next(`|
+      %c [${to.pathname} callbackGuard] 正在执行next | 
+      color: #FFF; font-weight: bold; background-color: #F56C6C;`,
+    );
     console.log(
-      `%c [called ${_to.pathname} callbackGuard next]`,
-      'color: #FFF; font-weight: bold; background-color: #67C23A;',
+      `%c [${to.pathname} callbackGuard] next执行完毕`,
+      'color: #FFF; font-weight: bold; background-color: #F56C6C;',
     );
     setTimeout(() => {
       // next 只会执行一次，所以这里不会再打印了
-      next(`${_to.pathname} 2callbackGuard`);
+      next(`|
+        %c [${to.pathname} 2callbackGuard] 正在执行next | 
+        color: #FFF; font-weight: bold; background-color: #F56C6C;`,
+      );
     }, 0);
   }, 3000);
 };

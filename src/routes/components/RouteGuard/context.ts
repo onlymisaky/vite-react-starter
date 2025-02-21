@@ -3,7 +3,6 @@ import { createContext, useContext } from 'react';
 
 export type Guard = (
   to: Location,
-  from: Location | null,
   next: (location?: Location | false | void | string) => void
 ) => void | Promise<void>;
 
