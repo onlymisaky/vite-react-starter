@@ -3,7 +3,7 @@ import MainLayout from '@/layouts/MainLayout';
 import AdminLayout from '@/pages/Admin/Layout';
 import NotFound from '@/pages/NotFound';
 import { Navigate } from 'react-router-dom';
-import { lazyLoadComponent } from './utils';
+import { renderLazyLoader } from './utils';
 
 export const routes: RouteObject[] = [
   {
@@ -16,11 +16,11 @@ export const routes: RouteObject[] = [
       },
       {
         path: 'home',
-        element: lazyLoadComponent(() => import('@/pages/Home')),
+        element: renderLazyLoader(() => import('@/pages/Home')),
       },
       {
         path: 'about',
-        element: lazyLoadComponent(() => import('@/pages/About')),
+        element: renderLazyLoader(() => import('@/pages/About')),
       },
       {
         path: 'admin',
@@ -32,11 +32,11 @@ export const routes: RouteObject[] = [
           },
           {
             path: 'users',
-            element: lazyLoadComponent(() => import('@/pages/Admin/UserManage')),
+            element: renderLazyLoader(() => import('@/pages/Admin/UserManage')),
           },
           {
             path: 'settings',
-            element: lazyLoadComponent(() => import('@/pages/Admin/Settings')),
+            element: renderLazyLoader(() => import('@/pages/Admin/Settings')),
           },
         ],
       },

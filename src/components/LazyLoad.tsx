@@ -1,10 +1,10 @@
-import type { ComponentType, LazyExoticComponent } from 'react';
+import type { ComponentProps, ComponentType, LazyExoticComponent } from 'react';
 import { Suspense } from 'react';
 import Loading from './Loading';
 
 interface LazyLoadProps {
   component: LazyExoticComponent<ComponentType<any>>
-  fallback?: React.ReactNode
+  fallback?: ComponentProps<typeof Suspense>['fallback']
 }
 
 export default function LazyLoad({ component: Component, fallback }: LazyLoadProps) {

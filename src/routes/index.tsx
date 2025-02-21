@@ -9,6 +9,9 @@ const router = createRouter(routes, {
 
 export default function AppRouter() {
   return (
-    <RouterProvider router={router} future={{ v7_startTransition: true }} />
+    <>
+      {/* 开启 v7_startTransition 会导致 Suspense 失效 */}
+      <RouterProvider router={router} future={{ v7_startTransition: false }} />
+    </>
   );
 }

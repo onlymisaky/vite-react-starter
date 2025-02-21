@@ -1,4 +1,3 @@
-import RouteTransition from '@/routes/components/RouteTransition';
 import { Link, Outlet } from 'react-router-dom';
 
 const navs = [
@@ -32,9 +31,10 @@ function MainLayout() {
       {/* 主内容区 */}
       <main className="flex-1 w-full">
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          <RouteTransition>
-            <Outlet />
-          </RouteTransition>
+          {/* TODO: 会导致页面加载两次 */}
+          {/* <RouteTransition> */}
+          <Outlet />
+          {/* </RouteTransition> */}
         </div>
       </main>
     </div>
