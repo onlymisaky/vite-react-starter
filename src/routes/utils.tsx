@@ -1,6 +1,8 @@
-import type { ComponentProps } from 'react';
+import type { ComponentProps, ComponentType } from 'react';
 import LazyLoad from '@/components/LazyLoad';
+import Loading from '@/components/Loading';
 import { lazy } from 'react';
+import RouteGuard from './components/RouteGuard';
 
 export function renderLazyLoader(
   componentLoader: Parameters<typeof lazy>[0],
@@ -27,4 +29,42 @@ export function renderLazyLoader(
   // };
 
   // return <WrappedComponent />;
+}
+
+const DEFAULT_GUARD_PROPS: ComponentProps<typeof RouteGuard> = {
+  guards: [],
+  useGlobalGuard: true,
+  fallback: <Loading />,
+};
+
+function withRouteGuard<P extends object>(WrappedComponent: ComponentType<P>) {
+  return function RouteGuardedComponent({
+    guards = DEFAULT_GUARD_PROPS.guards,
+    useGlobalGuard = DEFAULT_GUARD_PROPS.useGlobalGuard,
+    fallback = DEFAULT_GUARD_PROPS.fallback,
+    ...componentProps
+  }: P & ComponentProps<typeof RouteGuard>) {
+    const guardProps = {
+      guards,
+      useGlobalGuard,
+      fallback,
+    };
+
+    return (
+      <RouteGuard {...guardProps}>
+        <WrappedComponent {...(componentProps as P)} />
+      </RouteGuard>
+    );
+  };
+}
+
+export function renderLazyLoaderWithGuard(
+  componentLoader: Parameters<typeof lazy>[0],
+  guardProps: ComponentProps<typeof RouteGuard> = DEFAULT_GUARD_PROPS,
+) {
+  const LazyComponent = () => renderLazyLoader(componentLoader);
+
+  const Component = withRouteGuard(LazyComponent);
+
+  return <Component {...guardProps} />;
 }
