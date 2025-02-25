@@ -5,6 +5,7 @@ import { routes } from './route-config';
 import { routerGuards as guards } from './router-guards';
 
 const router = createRouter(routes, {
+  basename: import.meta.env.BASE_URL,
   future: {
     v7_relativeSplatPath: true,
   },
